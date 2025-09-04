@@ -1,0 +1,13 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+
+  .film {
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 200px;
+  }
+  .film img {
+    width: 100%;
+  }

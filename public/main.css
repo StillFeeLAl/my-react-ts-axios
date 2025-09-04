@@ -1,0 +1,18 @@
+body {
+    background: rgb(29, 32, 65);
+}
+
+body,
+div {
+    box-sizing: border-box;
+    margin: o;
+    padding: 0;
+}
+
+.container {
+    max-width: 1500px;
+    padding: 0 15px;
+    margin: auto;
+    background-color: transparent;
+}
+

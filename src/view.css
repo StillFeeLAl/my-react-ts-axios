@@ -1,0 +1,28 @@
+.searchlist {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.listitem a{
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.listitem{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+
+/* FILMS LIST */
+
+.filmcard {
+    width: 200px;
+    height: 290px;
+    background-color: rgb(190, 111, 111);
+}

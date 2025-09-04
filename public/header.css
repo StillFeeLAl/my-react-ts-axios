@@ -1,0 +1,10 @@
+.logo {
+    width: 65px;
+    height: 65px;
+    display: flex;
+}
+
+.header {
+    background-color: rgb(42, 50, 100);
+}
+
