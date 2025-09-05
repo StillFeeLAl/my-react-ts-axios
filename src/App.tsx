@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import './list.css';
+import './App.css';
 
 const API_KEY = '6c0294d0';
 
@@ -21,7 +21,7 @@ function App() {
 
 
 
-  // Фильтрация
+  // Фильтры
 
   const fetchFilms = useCallback(async (page: number = 1, searchTermValue: string = '', type: string = 'all') => {
     if (searchTermValue.trim() === '') {
@@ -65,7 +65,7 @@ function App() {
         const newSearchTerm = event.target.value;
         setSearchTerm(newSearchTerm);
         setCurrentPage(1);
-        // мгновенный поиск
+        //поиск
         fetchFilms(1, newSearchTerm, typeFilter);
     };
 
@@ -107,7 +107,7 @@ function App() {
                 />
             </div>
 
-            {/* Фильтр */}
+            {/* Фильтры */}
             <div className="filter-container" style={{ marginTop: '10px' }}>
             <button
         onClick={() => handleTypeChange('all')}
@@ -127,9 +127,11 @@ function App() {
       >
         Сериалы
       </button>
-
             </div>
+            {/* Фильтры КОНЕЦ*/}
 
+            
+            {/* просто ошибки поиска*/}
             {loading && <p>Думаем...</p>}
             {error && <p className="error-message">{error}</p>}
 
@@ -152,6 +154,7 @@ function App() {
                 )}
             </div>
 
+{/* странички*/}
             {totalResults > 0 && (
                 <div className="pagination">
                     <button onClick={handlePrevPage} disabled={currentPage === 1}>

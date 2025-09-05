@@ -1,4 +1,4 @@
-.searchlist {
+/* .searchlist {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -21,8 +21,10 @@
 
 /* FILMS LIST */
 
-.filmcard {
+/* .filmcard {
     width: 200px;
     height: 290px;
     background-color: rgb(190, 111, 111);
-}
+} */
+
+/* старые стили */
