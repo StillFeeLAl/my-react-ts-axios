@@ -12,11 +12,43 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
+    color: #8270b3;
 }
+
+.filter-container{
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.filter-container .active{
+    color: #8270b3;
+    background-color: #5c465c00;
+
+}
+
+.filter-container .all{
+    color: #8270b3;
+    background-color: rgb(42, 50, 100);
+    
+}
+
+.filter-container .movie{
+    color: #8270b3;
+    background-color: rgb(42, 50, 100);
+    
+}
+
+.filter-container .series{
+    color: #8270b3;
+    background-color: rgb(42, 50, 100);
+    
+}
+
 
 .error-message {
     display: none;
 }
+
 
 .films-container {
     display: flex;
@@ -36,6 +68,15 @@
     padding: 10px;
     box-shadow: 0 2px 5px rgba(37, 12, 105, 0.1);
     text-align: center;
+    cursor: pointer;
+
+    background-color: rgb(42, 50, 100);
+    opacity: 1;
+    transition-duration: 0.3s;
+}
+
+.film-poster:hover{
+    opacity: 0.5;
 }
 
 .film-poster {
@@ -43,6 +84,10 @@
     height: 400px;
     object-fit: cover; 
     margin-bottom: 20px;    
+
+    background-color: rgba(42, 50, 100, 0.349);
+    opacity: 1;
+    transition-duration: 0.3s;
 }
 
 .film-details {
@@ -67,3 +112,67 @@
 .page-number {
     margin: 0 10px;
 }
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.726);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: rgb(29, 32, 65);
+    padding: 20px;
+    border-radius: 8px;
+    height: 800px;
+    width: 1000px;
+    position: relative;
+}
+
+.film-name {
+    color: aliceblue;
+    background-color: #8270b3;
+    width: 280px;
+    padding: 10px;
+}
+
+.close-button {
+    width: 30px;
+    height: 30px;
+    border-radius: 20%;
+    border-color: #00000000;
+    background-color: rgb(16, 18, 36);
+    color: aliceblue;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.left-side {
+    width: 300px;
+    height: 450px;
+    position: absolute;
+}
+
+
+.right-side {
+    width: 500px;
+    height: 500px;
+    position: absolute;
+    right: 20px;
+}
+
+.ques{
+
+}
+
+.ans{
+    
+}
+
