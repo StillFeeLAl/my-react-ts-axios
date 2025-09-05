@@ -7,9 +7,9 @@ interface Film {
     Title: string;
     Year: string;
     Poster: string;
-    Plot?: string;
-    Genre?: string;
-    Director?: string;
+    Plot: string;
+    Genre: string;
+    Director: string;
 }
 
 const API_KEY = '6c0294d0';
