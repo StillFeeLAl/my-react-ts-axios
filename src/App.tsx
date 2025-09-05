@@ -19,78 +19,64 @@ function App() {
     const [totalResults, setTotalResults] = useState(0);
     const [typeFilter, setTypeFilter] = useState<'all' | 'movie' | 'series'>('all');
 
+    const fetchFilms = useCallback(async (page: number = 1, searchTermValue: string = '', type: string = 'all') => {
+        setLoading(true);
+        setError('');
+        try {
+            let url = `https://www.omdbapi.com/?apikey=${API_KEY}&page=${page}`;
+            if (type !== 'all') {
+                url += `&type=${type}`;
+            }
+            if (searchTermValue.trim() !== '') {
+                url += `&s=${encodeURIComponent(searchTermValue)}`;
+            } else {
+                url += `&s=${type}`;
+            }
+            const response = await fetch(url);
+            const data = await response.json();
 
+            if (data.Response === 'False') {
+                setFilms([]);
+                setError(data.Error);
+                setTotalResults(0);
+            } else {
+                setFilms(data.Search);
+                setTotalResults(parseInt(data.totalResults, 10));
+            }
+        } catch (err) {
+            setError('Failed to fetch data.');
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    }, []);
 
-  // Фильтры
+    useEffect(() => {
+        fetchFilms(1, '', 'all');
+    }, []);
 
-  const fetchFilms = useCallback(async (page: number = 1, searchTermValue: string = '', type: string = 'all') => {
-    if (searchTermValue.trim() === '') {
-      setFilms([]);
-      setTotalResults(0);
-      setLoading(false);
-      return;
-    }
-  
-    setLoading(true);
-    setError('');
-    try {
-      let url = `https://www.omdbapi.com/?apikey=${API_KEY}&page=${page}`;
-  
-      if (type !== 'all') {
-        url += `&type=${type}`;
-      }
-  
-      url += `&s=${encodeURIComponent(searchTermValue)}`;
-  
-      const response = await fetch(url);
-      const data = await response.json();
-  
-      if (data.Response === 'False') {
-        setFilms([]);
-        setError(data.Error);
-        setTotalResults(0);
-      } else {
-        setFilms(data.Search);
-        setTotalResults(parseInt(data.totalResults, 10));
-      }
-    } catch (err) {
-      setError('Failed to fetch data.');
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+    // Обновляем при смене страницы\фильтра\поиска
+    useEffect(() => {
+        fetchFilms(currentPage, searchTerm, typeFilter);
+    }, [currentPage, searchTerm, typeFilter, fetchFilms]);
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newSearchTerm = event.target.value;
-        setSearchTerm(newSearchTerm);
+        setSearchTerm(event.target.value);
         setCurrentPage(1);
-        //поиск
-        fetchFilms(1, newSearchTerm, typeFilter);
     };
 
     const handleTypeChange = (type: 'all' | 'movie' | 'series') => {
         setTypeFilter(type);
-      };
+        setCurrentPage(1);
+    };
 
     const handleNextPage = () => {
-        setCurrentPage((prev) => prev + 1);
+        setCurrentPage((prev) => Math.min(prev + 1, Math.ceil(totalResults / 10)));
     };
 
     const handlePrevPage = () => {
-        setCurrentPage((prev) => prev - 1);
+        setCurrentPage((prev) => Math.max(prev - 1, 1));
     };
-
-
-    useEffect(() => {
-        // при изменении стр иль поиска - запрос
-        if (searchTerm.trim() === '') {
-            setFilms([]);
-            setTotalResults(0);
-            return;
-          }
-        fetchFilms(currentPage, searchTerm, typeFilter);
-    }, [currentPage, searchTerm, typeFilter, fetchFilms]);
 
     const totalPages = Math.ceil(totalResults / 10);
 
@@ -109,29 +95,28 @@ function App() {
 
             {/* Фильтры */}
             <div className="filter-container" style={{ marginTop: '10px' }}>
-            <button
-        onClick={() => handleTypeChange('all')}
-        className={typeFilter === 'all' ? 'active' : ''}
-      >
-        Все
-      </button>
-      <button
-        onClick={() => handleTypeChange('movie')}
-        className={typeFilter === 'movie' ? 'active' : ''}
-      >
-        Фильмы
-      </button>
-      <button
-        onClick={() => handleTypeChange('series')}
-        className={typeFilter === 'series' ? 'active' : ''}
-      >
-        Сериалы
-      </button>
+                <button
+                    onClick={() => handleTypeChange('all')}
+                    className={typeFilter === 'all' ? 'active' : ''}
+                >
+                    Все
+                </button>
+                <button
+                    onClick={() => handleTypeChange('movie')}
+                    className={typeFilter === 'movie' ? 'active' : ''}
+                >
+                    Фильмы
+                </button>
+                <button
+                    onClick={() => handleTypeChange('series')}
+                    className={typeFilter === 'series' ? 'active' : ''}
+                >
+                    Сериалы
+                </button>
             </div>
             {/* Фильтры КОНЕЦ*/}
 
-            
-            {/* просто ошибки поиска*/}
+
             {loading && <p>Думаем...</p>}
             {error && <p className="error-message">{error}</p>}
 
@@ -154,7 +139,7 @@ function App() {
                 )}
             </div>
 
-{/* странички*/}
+            {/* странички */}
             {totalResults > 0 && (
                 <div className="pagination">
                     <button onClick={handlePrevPage} disabled={currentPage === 1}>
