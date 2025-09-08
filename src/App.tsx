@@ -102,7 +102,6 @@ function App() {
 
     return (
         <div className="app-container">
-            <h1>Поиск фильмов</h1>
 
             <div className="search-bar">
                 <input
@@ -117,19 +116,19 @@ function App() {
             <div className="filter-container">
                 <button
                     onClick={() => handleTypeChange('all')}
-                    className={typeFilter === 'all' ? 'active' : ''}
+                    className={typeFilter === 'all' ? 'active' : 'inactive'}
                 >
                     Все
                 </button>
                 <button
                     onClick={() => handleTypeChange('movie')}
-                    className={typeFilter === 'movie' ? 'active' : ''}
+                    className={typeFilter === 'movie' ? 'active' : 'inactive'}
                 >
                     Фильмы
                 </button>
                 <button
                     onClick={() => handleTypeChange('series')}
-                    className={typeFilter === 'series' ? 'active' : ''}
+                    className={typeFilter === 'series' ? 'active' : 'inactive'}
                 >
                     Сериалы
                 </button>
@@ -145,8 +144,7 @@ function App() {
             {/* Фильтры КОНЕЦ*/}
 
 
-            {loading && <p>Думаем...</p>}
-            {error && <p className="error-message">{error}</p>}
+            {loading && <p className='loading'>Думаем...</p>}
 
             <div className="films-container">
                 {films.length > 0 ? (
@@ -159,12 +157,12 @@ function App() {
                                 className="film-poster"
                             />
                             <div className="film-details">
-                                <strong>{film.Title}</strong> ({film.Year})
+                                <span className='film-title'>{film.Title}</span> <span className='film-year'>({film.Year})</span>
                             </div>
                         </div>
                     ))
                 ) : (
-                    !loading && <p>Нет результатов.</p>
+                    !loading && <p className='loading'>Нет результатов.</p>
                 )}
             </div>
 
@@ -200,7 +198,7 @@ function App() {
                         <div className="right-side">
 
                             <div className='about'>
-                                <p className='ans'>{filmDetails?.Plot || 'Нет данных'}</p>
+                                <p className='ans'>{filmDetails?.Plot ? filmDetails.Plot.slice(0, 500) + (filmDetails.Plot.length > 500 ? '...' : '') : 'Нет данных'}</p>
                             </div>
 
                             <div className='about'>

@@ -16,3 +16,18 @@ div {
     background-color: transparent;
 }
 
+
+.title {
+    color: aliceblue;
+    margin-bottom: 30px;
+}
+
+.banner{
+    background-image: url(./a8114e0464168373b144eea84addbfba.jpg);
+    height: 300px;
+    width: 100%;
+    display: block;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 10px;
+}
