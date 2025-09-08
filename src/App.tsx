@@ -184,6 +184,7 @@ function App() {
                 </div>
             )}
 
+
             {selectedFilm && (
                 <div className="modal-overlay" onClick={() => setSelectedFilm(null)}>
                     <div className="modal-content" onClick={(e) => e.stopPropagation()}>
